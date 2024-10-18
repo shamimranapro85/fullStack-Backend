@@ -29,7 +29,7 @@ User_join_router.post(
 );
 User_join_router.post("/verification/register", verificationRegister);
 User_join_router.post("/login", isLogin, login);
-User_join_router.post("/test", async (req, res) => {
+User_join_router.get("/test", async (req, res) => {
   const result = await register_otp_model.deleteMany({});
   const result1 = await Users_Register_model.deleteMany({});
   res.json({ result, result1 });
