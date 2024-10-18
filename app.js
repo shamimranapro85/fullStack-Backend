@@ -12,6 +12,7 @@ const { User_join_router } = require("./router/user_join_router");
 // -----------------------------------------------------
 // -----------------------------------------------------
 const winston = require("winston");
+const { mongoConnect_URI } = require("./service/secreate");
 
 
 winston.createLogger({
@@ -40,9 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // db connection =======================================================================
 app.use(async (rq, rs, next) => {
-  console.log(rq.body);
-  
-  await mongoose.connect("mongodb://localhost:27017/userDatabase_sherpur");
+  await mongoose.connect(mongoConnect_URI);
   console.log("db is connected");
   next();
 });
