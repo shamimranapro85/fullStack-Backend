@@ -11,5 +11,16 @@
       "src": "/(.*)",
       "dest": "/server.js"
     }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "shaim",
+          "value": "yourCookie=cookieValue; Path=/; HttpOnly; Secure; SameSite=None"
+        }
+      ]
+    }
   ]
 }
