@@ -18,8 +18,10 @@ const login = async (req, res, next) => {
       if (isMatch) {
         const token = await tokenCreate({ user }, jsonKey, "1d");
         try {
-          res.cookie("isLogin", token); 
-          console.log("cookie success")
+          res.cookie("isLogin", token, {
+            credentials: true,
+          });
+          console.log("cookie success");
         } catch (error) {
           console.log(error);
         }
