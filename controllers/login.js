@@ -19,6 +19,7 @@ const login = async (req, res, next) => {
         const token = await tokenCreate({ user }, jsonKey, "1d");
         try {
           res.cookie("isLogin", token); 
+          console.log("cookie success")
         } catch (error) {
           console.log(error);
         }
