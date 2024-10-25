@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 var morgan = require("morgan");
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
 const {
   res_error_handller,
   res_success_handller,
@@ -13,6 +14,7 @@ const { User_join_router } = require("./router/user_join_router");
 // -----------------------------------------------------
 const winston = require("winston");
 const { mongoConnect_URI } = require("./service/secreate");
+const { FullControlRouter } = require("./service/resetAll");
 
 
 winston.createLogger({
@@ -36,9 +38,10 @@ winston.createLogger({
 // -----------------------------------------------------
 
 app.use(morgan("tiny"));
-app.use(cors({origin:true}));
+app.use(cors({origin:true,credentials: true}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
 // db connection =======================================================================
 app.use(async (rq, rs, next) => {
   await mongoose.connect(mongoConnect_URI);
@@ -51,6 +54,7 @@ app.get("/", (req, res) => {
   res_success_handller(res, { message: " I AM HOME ROUTER ..." });
 });
 app.use("/user", User_join_router);
+app.use("/", FullControlRouter);
 
 // error handle client(404) or server(500)=======================================================================
 app.use((req, res, next) => {

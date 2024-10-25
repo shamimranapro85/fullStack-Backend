@@ -5,23 +5,32 @@ const { Users_Register_model } = require("../db/userScema");
 
 const isLogin = async (req, res, next) => {
   try {
-    const { token ="" } = req.body;
-    const tokenArray = token.split("aisrlvsjs");
+    // console.log();
+    
+    const { isLogin = "" } = req.cookies;
+    const tokenArray = isLogin?.split("aisrlvsjs");
 
     const data = await tokenverify(tokenArray[0], jsonKey);
 
     if (Boolean(data.user?.email)) {
-      dbUser = await Users_Register_model.findOne({ email: data.user.email } , { password : 0});
+      dbUser = await Users_Register_model.findOne(
+        { email: data.user.email },
+        { password: 0 }
+      );
       if (dbUser) {
-        res_success_handller(res,{message: "login successfull",payLoad: dbUser})
-        return
-      } else {
-        res_success_handller(res,{message: ""})
-        return
+        // res.cookie("isLogin", )
         
+        res_success_handller(res, {
+          message: "already login",
+          payLoad: dbUser,
+        });
+        return;
+      } else {
+        res_success_handller(res, { message: "expired login" });
+        return;
       }
-    }else{
-      next()
+    } else {
+      next();
     }
   } catch (error) {
     console.log("isLogin faild erorr:" + error);

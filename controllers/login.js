@@ -17,7 +17,7 @@ const login = async (req, res, next) => {
       const isMatch = await bcryptjs.compare(password, user.password);
       if (isMatch) {
         const token = await tokenCreate({ user }, jsonKey, "1d");
-
+        res.cookie("isLogin", token)
         res_success_handller(res, {
           message: "username and password successfully match",
           payLoad: token,

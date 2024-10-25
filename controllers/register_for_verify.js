@@ -19,7 +19,6 @@ const register_for_verify = async (req, res, next) => {
     const expire = await register_otp_model.deleteMany({
       expireAt: { $lt: Date.now() },
     });
-
     const alreadyUser = await Users_Register_model.findOne({
       email,
     });
@@ -54,6 +53,7 @@ const register_for_verify = async (req, res, next) => {
       <input type="text" value="${email}" name="email" style="display: none" />
       <h1><strong>${otp}</strong></h1>
       
+      <a href="http://localhost:3000/login">
       <button
         style="
           padding: 10px;
@@ -66,7 +66,7 @@ const register_for_verify = async (req, res, next) => {
         type="submit"
       >
         Verify
-      </button>
+      </button></a>
     </form>
     `;
 
@@ -76,6 +76,10 @@ const register_for_verify = async (req, res, next) => {
           console.log("email sended")
         );
         // console.log(email,token);
+        res_success_handller(res, {
+          payLoad: newUser.payload,
+          message: "user sended otp successfully check email",
+        });
       } catch (error) {
         console.log("email sent err : ", error);
 
@@ -84,11 +88,6 @@ const register_for_verify = async (req, res, next) => {
           message: error.message,
         });
       }
-
-      res_success_handller(res, {
-        payLoad: newUser.payload,
-        message: "user sended otp successfully check email",
-      });
     } else {
       res_success_handller(res, {
         message: `already sent otp try again after ${exprited_second} second`,

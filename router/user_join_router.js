@@ -15,26 +15,37 @@ const {
   validateLogin,
   runvalidation,
 } = require("../service/express_validation_register_data");
-const { res_error_handller } = require("../service/response_handler");
+const {
+  res_error_handller,
+  res_success_handller,
+} = require("../service/response_handler");
 
 const User_join_router = require("express").Router();
 
+const LogOut = (req, res) => {
+  try {
+    res.clearCookie("isLogin");
+    res.send("success");
+    return;
+  } catch (error) {
+    console.log(error);
+
+    res_error_handller(res);
+    return;
+  }
+};
 //  ========================/user==============================
 User_join_router.get("/reset", user_reset);
 User_join_router.post(
   "/register/otp",
- validateLogin,
+  validateLogin,
   runvalidation,
-  register_for_verify 
-);
-User_join_router.post("/verification/register", verificationRegister);
-User_join_router.post("/login", isLogin, login);
-User_join_router.get("/test", async (req, res) => {
-  const result = await register_otp_model.deleteMany({});
-  const result1 = await Users_Register_model.deleteMany({});
-  res.json({ result, result1 });
-  // const {token} = req.body
-  // res.json(token)
-});
+  register_for_verify
+); // রেজিস্টার .................--------------------------------------------------------------------------------
+User_join_router.post("/verification/register", verificationRegister); // ওটিপি দিয়ে ভেরিফিক্যাশন.................--------------------------------------------------------------------------------
+User_join_router.post("/login", isLogin, login); // লগিন.................--------------------------------------------------------------------------------
+User_join_router.get("/logout", LogOut); // লগিন.................--------------------------------------------------------------------------------
+
+// User_join_router.get("/token", tokenSaveCookie);
 
 module.exports = { User_join_router };
