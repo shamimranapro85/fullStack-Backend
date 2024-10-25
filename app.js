@@ -51,7 +51,7 @@ app.use(async (rq, rs, next) => {
 // routing=======================================================================
 
 app.get("/", (req, res) => {
-  res_success_handller(res, { message: " I AM HOME ROUTER ..." });
+  res_success_handller(res, { message: " Home and test successfull run ..." });
 });
 app.use("/user", User_join_router);
 app.use("/", FullControlRouter);
