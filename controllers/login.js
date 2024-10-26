@@ -25,7 +25,8 @@ const login = async (req, res, next) => {
         } catch (error) {
           console.log(error);
         }
-        res_success_handller(res, {
+        
+        return res_success_handller(res, {
           message: "username and password successfully match",
           payLoad: token,
         });
