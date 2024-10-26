@@ -20,12 +20,15 @@ const login = async (req, res, next) => {
         try {
           res.cookie("isLogin", token, {
             credentials: true,
+            httpOnly: true,
+            secure: false,
+            maxAge: 24 * 60 * 60 * 1000,
           });
           console.log("cookie success");
         } catch (error) {
           console.log(error);
         }
-        
+
         return res_success_handller(res, {
           message: "username and password successfully match",
           payLoad: token,
