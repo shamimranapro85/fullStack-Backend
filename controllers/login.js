@@ -20,15 +20,16 @@ const login = async (req, res, next) => {
         const token = await tokenCreate({ user }, jsonKey, "1d");
 
         res.cookie("isLogin", token, {
+          
           httpOnly: true,
           sameSite: "None",
           domain: "full-stack-indol-xi.vercel.app",
           maxAge: 24 * 60 * 60 * 1000,
           credentials: true,
         });
-        console.log("shamim");
+     
 
-        console.log(email);
+
 
         return res_success_handller(res, {
           message: "username and password successfully match",
