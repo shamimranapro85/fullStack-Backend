@@ -19,6 +19,7 @@ const {
   res_error_handller,
   res_success_handller,
 } = require("../service/response_handler");
+const { trusted } = require("mongoose");
 
 const User_join_router = require("express").Router();
 
@@ -53,7 +54,8 @@ User_join_router.get("/cookie",async (req, res) => {
     sameSite: "Lax",
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
     credentials:true,
-    httpOnly: true
+    httpOnly: true,
+    secure: trusted
   });
   console.log("success");
   
