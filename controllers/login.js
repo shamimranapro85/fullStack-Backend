@@ -19,9 +19,8 @@ const login = async (req, res, next) => {
         const token = await tokenCreate({ user }, jsonKey, "1d");
         try {
           res.cookie("isLogin", token, {
+            domain: "http://localhost:3000",
             credentials: true,
-            httpOnly: true,
-            secure: false,
             maxAge: 24 * 60 * 60 * 1000,
           });
           console.log("cookie success");

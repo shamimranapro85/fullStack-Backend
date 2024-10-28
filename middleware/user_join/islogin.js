@@ -6,8 +6,10 @@ const { Users_Register_model } = require("../db/userScema");
 const isLogin = async (req, res, next) => {
   try {
     // console.log();
-    
+
     const { isLogin = "" } = req.cookies;
+    console.log(req.cookies);
+
     const tokenArray = isLogin?.split("aisrlvsjs");
 
     const data = await tokenverify(tokenArray[0], jsonKey);
@@ -18,8 +20,6 @@ const isLogin = async (req, res, next) => {
         { password: 0 }
       );
       if (dbUser) {
-     
-        
         res_success_handller(res, {
           message: "already login",
           payLoad: dbUser,
