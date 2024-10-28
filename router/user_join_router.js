@@ -47,5 +47,15 @@ User_join_router.post("/login", isLogin, login); // লগিন................
 User_join_router.get("/logout", LogOut); // লগিন.................--------------------------------------------------------------------------------
 
 // User_join_router.get("/token", tokenSaveCookie);
+User_join_router.get("/cookie", (req, res) => {
+  res.cookie("cookie", "cookieValue", {
+    credentials:true
+  });
+  console.log("success");
+  
+  res.json({
+    name: "success"
+  })
+});
 
 module.exports = { User_join_router };
