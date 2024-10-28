@@ -47,11 +47,11 @@ User_join_router.post("/login", isLogin, login); // লগিন................
 User_join_router.get("/logout", LogOut); // লগিন.................--------------------------------------------------------------------------------
 
 // User_join_router.get("/token", tokenSaveCookie);
-User_join_router.get("/cookie", (req, res) => {
-  res.cookie("cookie", "cookieValue", {
+User_join_router.get("/cookie",async (req, res) => {
+  await res.cookie("cookie", "cookieValue", {
     credentials:true,
-    domain: "http://localhost:3000",
-    expires: Date.now()
+    domain: "localhost",
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
   });
   console.log("success");
   
