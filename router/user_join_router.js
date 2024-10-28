@@ -49,7 +49,9 @@ User_join_router.get("/logout", LogOut); // লগিন.................-------
 // User_join_router.get("/token", tokenSaveCookie);
 User_join_router.get("/cookie", (req, res) => {
   res.cookie("cookie", "cookieValue", {
-    credentials:true
+    credentials:true,
+    domain: "http://localhost:3000",
+    expires: Date.now()
   });
   console.log("success");
   
