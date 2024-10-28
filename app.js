@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 var morgan = require("morgan");
 const cors = require("cors");
-const cookieParser = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 const {
   res_error_handller,
   res_success_handller,
@@ -15,7 +15,6 @@ const { User_join_router } = require("./router/user_join_router");
 const winston = require("winston");
 const { mongoConnect_URI } = require("./service/secreate");
 const { FullControlRouter } = require("./service/resetAll");
-
 
 winston.createLogger({
   level: "info",
@@ -38,10 +37,10 @@ winston.createLogger({
 // -----------------------------------------------------
 
 app.use(morgan("tiny"));
-app.use(cors({origin:true,credentials: true}));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
+app.use(cookieParser());
 // db connection =======================================================================
 app.use(async (rq, rs, next) => {
   await mongoose.connect(mongoConnect_URI);
@@ -65,7 +64,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res_error_handller(res, { status_code: err.status, message: err.message });
-  return
+  return;
 });
 
 module.exports = { app };
