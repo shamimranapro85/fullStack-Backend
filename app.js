@@ -13,7 +13,7 @@ const { User_join_router } = require("./router/user_join_router");
 // -----------------------------------------------------
 // -----------------------------------------------------
 const winston = require("winston");
-const { mongoConnect_URI } = require("./service/secreate");
+const { mongoConnect_URI, FrontEndUrl } = require("./service/secreate");
 const { FullControlRouter } = require("./service/resetAll");
 
 winston.createLogger({
@@ -39,7 +39,7 @@ winston.createLogger({
 app.use(cookieParser());
 app.use(morgan("tiny"));
 app.use(
-  cors({ origin: "https://full-stack-indol-xi.vercel.app", credentials: true })
+  cors({ origin: `https://full-stack-jm7ua4wth-shamim-ranas-projects.vercel.app`, credentials: true })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
