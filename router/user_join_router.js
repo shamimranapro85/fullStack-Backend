@@ -50,9 +50,10 @@ User_join_router.get("/logout", LogOut); // লগিন.................-------
 User_join_router.get("/cookie",async (req, res) => {
   await res.cookie("cookie", "cookieValue", {
     domain: "localhost",
-    sameSite: "None",
+    sameSite: "Lax",
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
     credentials:true,
+    httpOnly: true
   });
   console.log("success");
   
