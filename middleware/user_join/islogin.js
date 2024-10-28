@@ -3,18 +3,17 @@ const { res_success_handller } = require("../../service/response_handler");
 const { jsonKey } = require("../../service/secreate");
 const { Users_Register_model } = require("../db/userScema");
 
-const isLogin = async (req, res, next) => {
+const isLogin_cmponents = async (req, res, next) => {
   try {
-    // console.log();
+    const { token = "" } = req.body;
 
-    const { isLogin = "" } = req.cookies;
-    console.log(req.cookies);
-
-    const tokenArray = isLogin?.split("aisrlvsjs");
+    const tokenArray = token?.split("aisrlvsjs");
 
     const data = await tokenverify(tokenArray[0], jsonKey);
 
     if (Boolean(data.user?.email)) {
+      console.log("test");
+
       dbUser = await Users_Register_model.findOne(
         { email: data.user.email },
         { password: 0 }
@@ -37,4 +36,4 @@ const isLogin = async (req, res, next) => {
   }
 };
 
-module.exports = { isLogin };
+module.exports = { isLogin_cmponents };

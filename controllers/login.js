@@ -11,22 +11,24 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await Users_Register_model.findOne({ email });
+    const user = await Users_Register_model.findOne({email}) 
 
     if (user) {
       const isMatch = await bcryptjs.compare(password, user.password);
+      
       if (isMatch) {
         const token = await tokenCreate({ user }, jsonKey, "1d");
-        try {
-          res.cookie("isLogin", token, {
-            domain: "http://localhost:3000",
-            credentials: true,
-            maxAge: 24 * 60 * 60 * 1000,
-          });
-          console.log("cookie success");
-        } catch (error) {
-          console.log(error);
-        }
+
+        res.cookie("isLogin", token, {
+          httpOnly: true,
+          sameSite: "None",
+          domain: "localhost",
+          maxAge: 24 * 60 * 60 * 1000,
+          credentials: true,
+        });
+        console.log("shamim");
+
+        console.log(email);
 
         return res_success_handller(res, {
           message: "username and password successfully match",
@@ -39,12 +41,16 @@ const login = async (req, res, next) => {
         });
       }
     } else {
+    
+
       return res_error_handller(res, {
         status_code: 404,
         message: "email not found please register now",
       });
     }
   } catch (error) {
+    console.log(error);
+
     next(error);
   }
 };

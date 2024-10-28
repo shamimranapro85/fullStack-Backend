@@ -10,7 +10,7 @@ const {
   Users_Register_model,
   register_otp_model,
 } = require("../middleware/db/userScema");
-const { isLogin } = require("../middleware/user_join/islogin");
+const { isLogin_cmponents } = require("../middleware/user_join/islogin");
 const {
   validateLogin,
   runvalidation,
@@ -44,24 +44,24 @@ User_join_router.post(
   register_for_verify
 ); // রেজিস্টার .................--------------------------------------------------------------------------------
 User_join_router.post("/verification/register", verificationRegister); // ওটিপি দিয়ে ভেরিফিক্যাশন.................--------------------------------------------------------------------------------
-User_join_router.post("/login", isLogin, login); // লগিন.................--------------------------------------------------------------------------------
+User_join_router.post("/login", isLogin_cmponents, login); // লগিন.................--------------------------------------------------------------------------------
 User_join_router.get("/logout", LogOut); // লগিন.................--------------------------------------------------------------------------------
 
 // User_join_router.get("/token", tokenSaveCookie);
-User_join_router.get("/cookie",async (req, res) => {
+User_join_router.get("/cookie", async (req, res) => {
   await res.cookie("cookie", "cookieValue", {
     domain: "localhost",
-    sameSite: 'None',
+    sameSite: "None",
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-    credentials:true,
+    credentials: true,
     httpOnly: true,
-    secure: trusted
+    secure: trusted,
   });
   console.log("success");
-  
+
   res.json({
-    name: "success"
-  })
+    name: "success",
+  });
 });
 
 module.exports = { User_join_router };
