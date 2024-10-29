@@ -39,7 +39,7 @@ winston.createLogger({
 app.use(cookieParser());
 app.use(morgan("tiny"));
 app.use(
-  cors({ origin: `https://full-stack-jm7ua4wth-shamim-ranas-projects.vercel.app`, credentials: true })
+  cors({ origin: `https://full-stack-indol-xi.vercel.app`, credentials: true })
   // cors({ origin: "http://localhost:3000", credentials: true })
 );
 app.use(express.json());
