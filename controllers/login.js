@@ -20,10 +20,10 @@ const login = async (req, res, next) => {
         const token = await tokenCreate({ user }, jsonKey, "1d");
 
         res.cookie("isLogin", token, {
-          // httpOnly: true,
-          // sameSite: "None",
-          // domain: "full-stack-indol-xi.vercel.app",
-          domain: "localhost",
+          httpOnly: true,
+          sameSite: "None",
+          domain: "full-stack-indol-xi.vercel.app",
+          // domain: "localhost",
           maxAge: 24 * 60 * 60 * 1000,
           credentials: true,
         });
