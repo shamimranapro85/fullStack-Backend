@@ -21,7 +21,7 @@ const login = async (req, res, next) => {
 
         res.cookie("isLogin", token, {
           httpOnly: true,
-          sameSite: "None",
+          sameSite: "lax",
           domain: "full-stack-indol-xi.vercel.app",
           // domain: "localhost",
           maxAge: 24 * 60 * 60 * 1000,
