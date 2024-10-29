@@ -11,25 +11,22 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    const user = await Users_Register_model.findOne({email}) 
+    const user = await Users_Register_model.findOne({ email });
 
     if (user) {
       const isMatch = await bcryptjs.compare(password, user.password);
-      
+
       if (isMatch) {
         const token = await tokenCreate({ user }, jsonKey, "1d");
 
         res.cookie("isLogin", token, {
-          
-          httpOnly: true,
-          sameSite: "None",
-          domain: "full-stack-indol-xi.vercel.app",
+          // httpOnly: true,
+          // sameSite: "None",
+          // domain: "full-stack-indol-xi.vercel.app",
+          domain: "localhost",
           maxAge: 24 * 60 * 60 * 1000,
           credentials: true,
         });
-     
-
-
 
         return res_success_handller(res, {
           message: "username and password successfully match",
@@ -42,8 +39,6 @@ const login = async (req, res, next) => {
         });
       }
     } else {
-    
-
       return res_error_handller(res, {
         status_code: 404,
         message: "email not found please register now",

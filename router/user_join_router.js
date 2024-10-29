@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+
 const { login } = require("../controllers/login");
 const {
   user_join_controller,
@@ -23,10 +23,10 @@ const { trusted } = require("mongoose");
 
 const User_join_router = require("express").Router();
 
-const LogOut = (req, res) => {
+const LogOut = (req, res, next) => {
   try {
     res.clearCookie("isLogin");
-    res.send("success");
+    res.json("logout successfully");
     return;
   } catch (error) {
     console.log(error);
